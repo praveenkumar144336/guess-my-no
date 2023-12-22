@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guees My No Game </title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@500&family=Press+Start+2P&display=swap');
+        /* *{  
+            margin: 0px;
+            padding: 0px;
+            font-family: 'press start 2p',sans-serif; 
+        }
+
+        body{
+            color: white;
+            background-color: black;
+        }
+
+        /* Layout */
+
+        header div{
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        header div .again{
+            font-size: 40px;
+            margin: 20px;
+            padding: 10px;
+        }
+        header div p{
+            font-size:30px ;
+        }
+        h1{
+            text-align: center;
+            font-size: 50px;
+            margin-top: 30px;
+        }
+        header{
+            border-bottom: 10px solid white;
+        }
+        .number{
+            font-size: 80px;
+            background-color:darkorange;
+            width: 100px;
+            padding: 20px;
+            position: relative;
+            left: 600px;
+            top: 60px;
+        }
+        main{
+            margin-top: 150px;
+            display: flex;
+            justify-content: space-around;
+        }
+        .guess{
+            padding: 20px;
+            width: 150px;
+            font-size: 40px;
+            text-align: center;
+            border: 2px solid white;
+            display: block;
+        }
+        .chekBtn{
+            font-size: 30px;
+            padding: 10px;
+            margin-top: 20px;
+            margin-left: 20px;
+        }
+        .message{
+            font-size: 30px;
+            margin-bottom: 50px;
+        }
+        .label-score{
+            font-size: 30px;
+            margin-bottom: 50px;
+
+        }
+        .label-highscore{
+            font-size: 30px;
+            margin-bottom: 50px;
+
+        }
+        
+
+
+      </style>
+
+    
+</head>
+<body>
+    <header>
+        <div>
+            <button class="again">Again!</button>
+            <p>(Between 1 and 20)</p>
+        </div>
+        <h1>Guess My Number !</h1>
+        <div class="number">?</div>
+    </header>
+
+    <main>
+        <section class="left">
+            <input type="number" name="guess" class="guess" id="guess" >
+            <button class="chekBtn" id="chekBtn">Chek!</button>  
+        </section>
+        <section class="right">
+            
+                <p class="message">Start guesssing....</p>
+                <p class="label-score">Score:  <span id="label-score">20</span></p>
+                <p class="label-highscore">HighScore:  <span id="label-highscore">0</span></p>
+            
+           
+        </section>
+    </main>
+    
+</body>
+<script>
+
+// to genetare a secret number:
+
+let secretNumber= Math.trunc(Math.random()*20 +1);
+
+
+let score=20;
+let highscore=0;
+
+
+// Logics:
+document.getElementById('chekBtn').addEventListener('click',()=>{
+    const guesseddNo=document.getElementById('guess').value;
+
+    // if there is no number:
+    if(!guesseddNo){
+        document.querySelector('.message').textContent="No Number!"
+    }
+
+    // when Player wins:
+    else if(guesseddNo=== secretNumber){
+        document.querySelector('message').textContent="Correct Number";
+        document.querySelector(".number").textContent=secretNumber;
+
+        document.querySelector("body").style.backgroundColor="red";
+
+
+        // for Highscore:
+        if(score> highScore){
+            highScore=score;
+            document.getElementById("highscore").textContent=highscore;
+
+        }
+
+    }
+
+    // when the guess is too low:
+    else if(guesseddNo > secretNumber){
+       if(score > 1){
+          document.querySelector('.messsage').textContent = "Too High!";
+          score = score - 1;
+          document.getElementById('score').textContent = score;
+
+          
+       }else{
+           document.querySelector('.message').textContent = "You Lost the Game!";
+           document.getElementById('score').textContent=0;
+       }
+    }
+
+    // when the guess is too low:
+    else if(guesseddNo < secretNumber){
+        if(score>1){
+            document.querySelector('.messsage').textContent = "Too Low!";
+            score=score-1;
+            document.getElementById('score').textContent = score;
+
+ 
+        }else{
+            
+           document.querySelector('.message').textContent = "You Lost the Game!";
+           document.getElementById('score').textContent=0;
+
+        }
+    }
+    
+})
+
+
+
+
+
+
+   
+
+
+
+
+
+    
+
+</script>
+</html> 

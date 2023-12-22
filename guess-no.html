@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>game</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Edu+TAS+Beginner:wght@500&family=Press+Start+2P&display=swap"
+        rel="stylesheet">
+    <style>
+        * {
+            font-family: 'press start 2p', sans-sarif;
+        }
+
+        body {
+            color: white;
+            background-color: black;
+        }
+
+        header div {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        header div .again {
+            font-size: 20px;
+            margin: 20px;
+            padding: 20px;
+            width: 200px;
+        }
+
+        header div p {
+            font-size: 25px;
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 40px;
+        }
+        @media only screen and (min-width:500px) and (max-width:786px)  {
+            h1{
+                font-size: 20px;
+            }
+        }
+
+        header {
+            border-bottom: 20px solid white;
+        }
+
+        .number {
+            font-size: 60px;
+            background-color: red;
+            width: 120px;
+            justify-content: center;
+            padding: 20px;
+            position: relative;
+            left: 600px;
+            top: 55px;
+        }
+        @media only screen and (min-width:700px) and (max-width:1120px)  {
+            .number{
+                position: relative;
+            left: 300px;
+            top: 55px;
+            }
+        }
+        @media only screen and (min-width:500px) and (max-width:876px)  {
+            .number{
+                position: relative;
+            left: 300px;
+            top: 55px;
+            }
+        }
+        @media only screen and (min-width:400px) and (max-width:576px)  {
+            .number{
+                position: relative;
+            left: 150px;
+            top: 55px;
+            }
+        }
+
+        main {
+            margin-top: 100px;
+            display: flex;
+            justify-content: space-around;
+        }
+
+        .guess {
+            display: block;
+            padding: 10px;
+            width: 150px;
+            text-align: center;
+        }
+
+        .ckeckBtn {
+            padding: 10px;
+            margin-top: 5px;
+            margin-left: 30px;
+            width: 100px;
+        }
+
+        .message {
+            margin-bottom: 10px;
+        }
+        .bt{
+          font-size: 30px;
+        }
+        @media only screen and (min-width:500px) and (max-width:830px)  {
+            .bt{
+                font-size: 20px;
+            }
+        }
+        p{
+            font-size: 25px;
+        }
+        @media only screen and (min-width:400px) and (max-width:730px)  {
+            .message{
+                font-size: 20px;
+            }
+        }
+        @media only screen and (min-width:400px) and (max-width:530px)  {
+            .message{
+                font-size: 10px;
+            }
+        }
+        @media only screen and (min-width:400px) and (max-width:730px)  {
+            .label-score{
+                font-size: 20px;
+            }
+        }
+        @media only screen and (min-width:400px) and (max-width:530px)  {
+            .label-score{
+                font-size: 10px;
+            }
+        }
+        @media only screen and (min-width:400px) and (max-width:730px)  {
+            .label-highscore{
+                font-size: 20px;
+            }
+        }
+        @media only screen and (min-width:400px) and (max-width:530px)  {
+            .label-highscore{
+                font-size: 10px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <div>
+            <button class="again" id="again">Again</button>
+            <p class="bt">(Between 1 and 20)</p>
+        </div>
+        <h1>Guess my number!</h1>
+        <div class="number">?</div>
+    </header>
+    <main>
+        <section class="left">
+            <input type="number" name="guess" class="guess" id="guess">
+            <button class="ckeckBtn" id="ckeckBtn">Check</button>
+        </section>
+        <section class="right">
+            <p class="message">Start guessing..</p>
+            <p class="label-score">Score: <span id="score">20</span></p>
+            <p class="label-highscore">HighScore <span id="highscore">0</span></p>
+        </section>
+    </main>
+    <script>
+        let secretNumber = Math.trunc(Math.random() * 20 + 1);
+        console.log(secretNumber);
+        let score = 20;
+        let highScore = 0;
+
+        document.querySelector('.again').addEventListener('click',()=> {
+            score = 20;
+            secretNumber = Math.trunc(Math.random() * 20 + 1);
+
+            document.querySelector('.message').textContent = ' Guess your number..!';
+            document.getElementById('score').textContent = score;
+           
+            document.querySelector('.number').textContent = '?';
+            document.querySelector('body').style.backgroundColor = 'black';
+        });
+
+
+        document.getElementById('ckeckBtn').addEventListener('click', () => {
+            const guesseddNo = Number(document.getElementById('guess').value);
+
+            if (!guesseddNo) {
+                document.querySelector('.message').textContent = "No Number!";
+            }
+            else if (guesseddNo === secretNumber) {
+                document.querySelector('.message').textContent = "Correct Number";
+                document.querySelector(".number").textContent = secretNumber;
+                document.querySelector('body').style.backgroundColor = "red";
+                if (score > highScore) {
+                    highScore = score;
+                    document.getElementById('highscore').textContent = highScore;
+                }
+            }
+
+            else if (guesseddNo > secretNumber) {
+                if (score > 1) {
+                    document.querySelector('.message').textContent = "too High";
+                    score = score - 1;
+                    document.getElementById('score').textContent = score;
+                } else {
+                    document.querySelector('.message').textContent = "you loss the game";
+                    document.getElementById('score').textContent = 0;
+                }
+            }
+
+            else if (guesseddNo < secretNumber) {
+                if (score > 1) {
+                    document.querySelector('.message').textContent = "too low";
+                    score = score - 1;
+                    document.getElementById('score').textContent = score;
+                } else {
+                    document.querySelector('.message').textContent = "you loss the game";
+                    document.getElementById('score').textContent = 0;
+                }
+            }
+
+
+        })
+
+    </script>
+
+    
+</body>
+</html>
